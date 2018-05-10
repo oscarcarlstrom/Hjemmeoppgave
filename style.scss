@@ -101,7 +101,7 @@ body {
     @extend %shadowBox;
 
     &.loading {
-      height: 82em;
+      height: 84em;
 
       &::before {
         content: "";
