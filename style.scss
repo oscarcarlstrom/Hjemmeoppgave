@@ -1,0 +1,259 @@
+//Variables
+$fontLight: 300 1em 'Open Sans', sans-serif;
+$fontRegular: 400 1em 'Open Sans', sans-serif;
+$fontBold: 600 1em 'Open Sans', sans-serif;
+
+$primaryColor: #009681;
+$primaryColorBlurred: #cfebe7;
+$black: #262626;
+$lightGray: #e4e4e4;
+$shadowGray: #8c8c8c;
+$tintedWhite: #FEFEFE;
+$white: white;
+
+$contentWidth: 65em;
+$borderRadius: 4px;
+
+//Super classes
+%contentWidth {
+  width: $contentWidth;
+  max-width: 100%;
+}
+
+%centerBlock {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+%centerAll {
+  @extend %centerBlock;
+  text-align: center;
+}
+
+%shadowBox {
+  box-shadow: 0px 3px 13px $shadowGray;
+  border-radius: $borderRadius;
+}
+
+%nowrap {
+  white-space: nowrap;
+}
+
+//Mixins
+@mixin user-select($val) {
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@mixin transition($args...) {
+  -o-transition: width 2s;
+  -moz-transition: width 2s;
+  -webkit-transition: width 2s;
+  transition: width 2s;
+}
+
+@mixin animation($name, $duration, $timingFunction, $iterationCount) {
+  -ms-animation: $name $duration $timingFunction $iterationCount;
+	-o-animation: $name $duration $timingFunction $iterationCount;
+  -moz-animation: $name $duration $timingFunction $iterationCount;
+  -webkit-animation: $name $duration $timingFunction $iterationCount;
+  animation: $name $duration $timingFunction $iterationCount;
+}
+
+@mixin transform($functions...) {
+  -ms-transform: $functions;
+  -o-transform: $functions;
+  -moz-transform: $functions;
+  -webkit-transform: $functions;
+  transform: $functions;
+}
+
+//Animations
+@keyframes spin {
+    0% { @include transform(rotate(0deg)); }
+    100% { @include transform(rotate(360deg)); }
+}
+
+body {
+  font: $fontLight;
+  color: $black;
+  background-color: $tintedWhite;
+  padding-bottom: 6em;
+  padding-top: 2em;
+}
+
+#container {
+  background-color: $white;
+  @extend %contentWidth;
+  @extend %centerBlock;
+
+  h1 {
+    font-weight: inherit;
+  }
+
+  #pageination-table-container {
+    position: relative;
+  }
+
+  #table-container {
+    padding: 1em 2em;
+    @extend %shadowBox;
+
+    &.loading {
+      height: 82em;
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        border-radius: $borderRadius;
+        background-color: $white;
+        opacity: 0.9;
+      }
+
+      &::after {
+        content: "";
+        border: 10px solid white;
+        border-top-color: $primaryColor;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin-right: auto;
+        margin-left: auto;
+        top: calc((100vh/2) - 35px);
+        box-shadow: 0px 0px 8px #354a5d;
+        @include animation(spin, 1s, linear, infinite);
+      }
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+
+      & tr:not(:last-child) {
+        td {
+          border-bottom: 1px solid $lightGray;
+        }
+      }
+
+      th, td {
+        padding: 1em;
+      }
+
+      th {
+        font: $fontBold;
+        color: $primaryColor;
+        border-bottom: 1px solid $primaryColor;
+        &:not(.number):not(.date) {
+          text-align: left;
+        }
+      }
+
+      td {
+        &.number {
+          @extend %nowrap;
+          text-align: right;
+        }
+
+        a {
+          color: $primaryColor;
+          font-weight: normal;
+          text-decoration: none;
+          border: 1px solid transparent;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .nobreak {
+        @extend %nowrap;
+      }
+    }
+  }
+
+  #page-nav-container {
+    position: fixed;
+    bottom: 0;
+    @extend %contentWidth;
+    padding: 1em 0;
+
+    &::after {
+      content: "";
+      background-color: $white;
+      filter: blur(0.5em);
+      opacity: 0.9;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+    }
+    #button-container {
+      width: 32em;
+      @extend %centerAll;
+      z-index: 100;
+      position: relative;
+      font-size: 1.2em;
+
+      button {
+        @include user-select(none);
+        font: $fontRegular;
+        background-color: $white;
+        border: none;
+        padding: 1em;
+        width: 3.7em;
+        cursor: pointer;
+
+        &:not(.active) {
+          color: $primaryColor;
+
+          &:not(:disabled) {
+            transition: background-color 200ms ease;
+
+            &:hover {
+              background-color: $lightGray;
+            }
+          }
+        }
+
+        &.arrow-button {
+          @extend %shadowBox;
+        }
+
+        &:disabled {
+          color: $primaryColorBlurred;
+          cursor: initial;
+        }
+      }
+
+      #index-buttons {
+        display: inline-block;
+        margin: 0 1em;
+        @extend %shadowBox;
+
+        :nth-child(1) {
+          border-top-left-radius: $borderRadius;
+          border-bottom-left-radius: $borderRadius;
+        }
+        :nth-last-child(1) {
+          border-top-right-radius: $borderRadius;
+          border-bottom-right-radius: $borderRadius;
+        }
+
+        .active {
+          background-color: $primaryColor;
+          color: $white;
+        }
+      }
+    }
+  }
+}

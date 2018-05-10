@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <title>Popular JavaScript repos on github</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <script src="gitjsrepos.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.12/css/all.css" integrity="sha384-G0fIWCsCzJIMAVNQPfjH08cyYaUtMwjJwqiRKxxE/rx96Uroj1BtIQ6MLJuheaO9" crossorigin="anonymous">
+  <link href="style.min.css" rel="stylesheet">
+</head>
+<body>
+  <div data-ng-app="app" data-ng-controller="controller" id="container">
+    <h1>Some of the most popular JavaScript repos on github</h1>
+    <div id="pageination-table-container">
+      <div id="table-container" data-ng-class="{ loading: isLoading() }">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th class="date">Created</th>
+              <th class="number">Stars</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="r in repos">
+              <td class="nobreak">
+                <a data-ng-href="{{ r.html_url }}" target="_blank">
+                  {{ r.name }} <i class="fa fa-external-link-alt" aria-hidden="true"></i>
+                </a>
+              </td>
+              <td>
+                {{ r.description }}
+              </td>
+              <td class="nobreak">
+                {{ r.created_at | date:'yyyy-MM-dd' }}
+              </td>
+              <td class="number">
+                {{ r.stargazers_count | number }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div id="page-nav-container" data-ng-if="!isLoading()">
+        <div id="button-container">
+          <button class="arrow-button" data-ng-click="prevPage()" data-ng-disabled="isFirstPage()" aria-label="Previous">
+            <i class="fas fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <div id="index-buttons">
+            <button data-ng-class="{ active: isActive($index) }" data-ng-repeat="i in getPageNumber(number) track by $index" data-ng-click="showPage($index)">
+              {{$index + 1}}
+            </button>
+          </div>
+          <button class="arrow-button" data-ng-click="nextPage()" data-ng-disabled="isLastPage()" aria-label="Next">
+            <i class="fas fa-chevron-right" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
