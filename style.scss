@@ -240,6 +240,10 @@ body {
         margin: 0 1em;
         @extend %shadowBox;
 
+        button {
+          margin: 0;
+        }
+
         :nth-child(1) {
           border-top-left-radius: $borderRadius;
           border-bottom-left-radius: $borderRadius;
