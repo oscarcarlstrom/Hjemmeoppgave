@@ -83,6 +83,39 @@ body {
   padding-bottom: 6em;
 }
 
+.loading {
+  height: 84em;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: $borderRadius;
+    background-color: $white;
+    opacity: 0.9;
+  }
+
+  &::after {
+    content: "";
+    border: 10px solid white;
+    border-top-color: $primaryColor;
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin-right: auto;
+    margin-left: auto;
+    top: calc((100vh/2) - 35px);
+    box-shadow: 0px 0px 8px #354a5d;
+    @include animation(spin, 1s, linear, infinite);
+  }
+}
+
 #container {
   background-color: $white;
   @extend %contentWidth;
@@ -99,39 +132,6 @@ body {
   #table-container {
     padding: 1em 2em;
     @extend %shadowBox;
-
-    &.loading {
-      height: 84em;
-
-      &::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        left: 0;
-        border-radius: $borderRadius;
-        background-color: $white;
-        opacity: 0.9;
-      }
-
-      &::after {
-        content: "";
-        border: 10px solid white;
-        border-top-color: $primaryColor;
-        border-radius: 50%;
-        width: 70px;
-        height: 70px;
-        position: absolute;
-        right: 0;
-        left: 0;
-        margin-right: auto;
-        margin-left: auto;
-        top: calc((100vh/2) - 35px);
-        box-shadow: 0px 0px 8px #354a5d;
-        @include animation(spin, 1s, linear, infinite);
-      }
-    }
 
     table {
       width: 100%;
@@ -160,6 +160,7 @@ body {
         &.number {
           @extend %nowrap;
           text-align: right;
+          color: $primaryColor;
         }
 
         a {
