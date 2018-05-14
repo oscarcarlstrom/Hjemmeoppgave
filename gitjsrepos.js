@@ -19,17 +19,19 @@ app.controller("controller", function($scope, $http) {
        return $http.pendingRequests.length !== 0;
     };
 
+    //Execute the http request to the github API
     $http.get(GET_REPOS_URL).then(function (response) {
       allRepos = response.data.items;
       nPages = allRepos.length / PAGE_VIEW_SIZE;
-      currentPageIndex = 0;
 
-      initTableData(); //Init the table data/meta data
+      initTableData();
     });
 
     //Inits the table data/meta data
     function initTableData() {
-      //Calculates the number of pagination buttons needed
+      currentPageIndex = 0;
+
+      //Sets up the number of pagination buttons needed
       $scope.number = nPages;
       $scope.getPageNumber = function(n) {
           return new Array(n);
@@ -38,6 +40,7 @@ app.controller("controller", function($scope, $http) {
       //Shows the selected page
       $scope.showPage = showPage;
 
+      //Highlights the selected page
       $scope.isActive = function (index) {
         return index === currentPageIndex;
       };
@@ -58,7 +61,7 @@ app.controller("controller", function($scope, $http) {
       $scope.isLastPage = isLastPage;
       $scope.isFirstPage = isFirstPage;
 
-      //Show first page
+      //Show the first page initially
       $scope.repos = allRepos.slice(currentPageIndex, PAGE_VIEW_SIZE);
     }
 
