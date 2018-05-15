@@ -123,7 +123,6 @@ body {
 
   h1 {
     font-weight: inherit;
-    padding-left: 2rem;
   }
 
   #pageination-table-container {
@@ -131,7 +130,7 @@ body {
   }
 
   #table-container {
-    padding: 1em 2rem;
+    padding: 1em 2em;
     @extend %shadowBox;
 
     table {
