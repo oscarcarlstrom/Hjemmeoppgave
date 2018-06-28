@@ -150,7 +150,7 @@ body {
       th {
         font: $fontBold;
         color: $primaryColor;
-        border-bottom: 1px solid $primaryColor;
+        border-bottom: 2px solid $primaryColor;
         &:not(.number):not(.date) {
           text-align: left;
         }
@@ -161,6 +161,7 @@ body {
           @extend %nowrap;
           text-align: right;
           color: $primaryColor;
+          font-weight: 400;
         }
 
         a {
