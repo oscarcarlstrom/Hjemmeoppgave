@@ -4,7 +4,7 @@ $fontRegular: 400 1em 'Open Sans', sans-serif;
 $fontBold: 600 1em 'Open Sans', sans-serif;
 
 $primaryColor: #009681;
-$primaryColorBlurred: #cfebe7;
+$primaryColorBlurred: #00968121;
 $black: #262626;
 $lightGray: #e4e4e4;
 $shadowGray: #8c8c8c;
@@ -123,6 +123,8 @@ body {
 
   h1 {
     font-weight: inherit;
+    font-weight: 500;
+    color: $primaryColor;
   }
 
   #pageination-table-container {
@@ -150,7 +152,7 @@ body {
       th {
         font: $fontBold;
         color: $primaryColor;
-        border-bottom: 2px solid $primaryColor;
+        border-bottom: 2px solid $primaryColorBlurred;
         &:not(.number):not(.date) {
           text-align: left;
         }
